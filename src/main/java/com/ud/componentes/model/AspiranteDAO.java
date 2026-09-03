@@ -29,4 +29,14 @@ public class AspiranteDAO {
 		}
 		return false;
 	}	
+	
+	public static boolean validarAspirante(String idAspirante) {
+		boolean existente = false;
+		for (AspiranteDTO aspirante : aspirantes) {
+			if (aspirante.getIdentificacion().equals(idAspirante)) {
+				existente = true;
+			}
+		}
+		return !existente;
+	}
 }

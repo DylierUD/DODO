@@ -1,6 +1,8 @@
 package com.ud.componentes.controller;
 
 import java.io.Serializable;
+
+import com.ud.componentes.model.AspiranteDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +38,11 @@ public class AspiranteBean implements Serializable {
 	}
 
 	public void inscribirse() {
+		
+		if (AspiranteDAO.validarAspirante(identificacion)) {
+			mensaje(FacesMessage.SEVERITY_ERROR, "Error", "El aspirante ya tiene una inscripcion.");
+			return;
+		}
 
 		if (programasSeleccionados == null || programasSeleccionados.isEmpty()) {
 			mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debes elegir al menos una carrera.");
@@ -50,7 +57,7 @@ public class AspiranteBean implements Serializable {
 
 		AspiranteDTO aspirante = new AspiranteDTO(identificacion, nombres, apellidos, correo, telefono);
 		aspirante.setFechaInscripcion(new Date());
-
+ 
 		
 		for (String nombrePrograma : programasSeleccionados) {
 			ProgramaAcademico programa = programaBean.buscarPorNombre(nombrePrograma);
@@ -60,7 +67,7 @@ public class AspiranteBean implements Serializable {
 					mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
 							"¡Inscripción realizada!");
 				} else {
-					mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
+					mensaje(FacesMessage.SEVERITY_ERROR, "Error",
 							"¡Inscripción Fallida!");
 				}
 			}
