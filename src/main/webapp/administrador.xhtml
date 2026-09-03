@@ -12,6 +12,10 @@
 			<h1>Estudiantes Inscritos</h1>
 
 		<p:growl id="mensajes" showDetail="true" />
+		<p:button
+    value="Gestionar Programas Académicos"
+    icon="pi pi-book"
+    outcome="programas"/>
 			<p:accordionPanel value="#{administradorBean.programaBean.programas}" var="prog">
 				<p:tab title="#{prog.nombrePrograma} (#{prog.aspirantes.size()} inscritos)">
 

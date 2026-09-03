@@ -1,6 +1,7 @@
 package com.ud.componentes.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramaAcademico implements Serializable{
@@ -18,6 +19,11 @@ public class ProgramaAcademico implements Serializable{
 		super();
 		this.nombrePrograma = nombrePrograma;
 		this.aspirantes = aspirantes;
+	}
+	
+	public ProgramaAcademico(String nombrePrograma) {
+	    this.nombrePrograma = nombrePrograma;
+	    this.aspirantes = new ArrayList<>();
 	}
 
 	public String getNombrePrograma() {

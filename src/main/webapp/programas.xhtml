@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+
+    <title>Programas Académicos</title>
+
+</h:head>
+
+<h:body>
+
+    <h:form id="form">
+
+        <p:growl id="mensajes"
+                 showDetail="true"
+                 life="4000"/>
+
+
+        <h1>Administración de Programas Académicos</h1>
+        
+		<p:panel header="Programa académico">
+
+            <p:outputLabel
+                    for="nombre"
+                    value="Nombre del programa:"/>
+
+            <p:inputText
+                    id="nombre"
+                    value="#{programaCrudBean.nombrePrograma}"
+                    required="true"
+                    requiredMessage="Ingrese el nombre del programa."
+                    placeholder="Ej: Ingeniería de Software"/>
+
+
+            <p:commandButton
+                    value="Agregar"
+                    icon="pi pi-plus"
+                    action="#{programaCrudBean.agregarPrograma}"
+                    update="@form"
+                    rendered="#{empty programaCrudBean.nombreAnterior}"/>
+
+
+            <p:commandButton
+                    value="Actualizar"
+                    icon="pi pi-pencil"
+                    action="#{programaCrudBean.actualizarPrograma}"
+                    update="@form"
+                    rendered="#{not empty programaCrudBean.nombreAnterior}"/>
+
+
+            <p:commandButton
+                    value="Cancelar"
+                    icon="pi pi-times"
+                    action="#{programaCrudBean.nuevoPrograma}"
+                    update="@form"
+                    rendered="#{not empty programaCrudBean.nombreAnterior}"/>
+
+        </p:panel>
+
+
+        <br/>
+
+
+        <!-- ========================= -->
+        <!-- TABLA -->
+        <!-- ========================= -->
+
+        <p:panel header="Programas registrados">
+
+            <p:dataTable
+                    id="tablaProgramas"
+                    value="#{programaCrudBean.programas}"
+                    var="programa"
+                    paginator="true"
+                    rows="10"
+                    emptyMessage="No hay programas registrados.">
+
+
+                <!-- NOMBRE -->
+
+                <p:column
+                        headerText="Programa académico"
+                        sortBy="#{programa.nombrePrograma}">
+
+                    <h:outputText
+                            value="#{programa.nombrePrograma}"/>
+
+                </p:column>
+
+
+                <!-- ESTUDIANTES -->
+
+                <p:column
+                        headerText="Estudiantes"
+                        style="text-align:center">
+
+                    <h:outputText
+                            value="#{programa.aspirantes.size()}"/>
+
+                </p:column>
+
+
+                <!-- ACCIONES -->
+
+                <p:column
+                        headerText="Acciones"
+                        style="text-align:center">
+
+
+                    <!-- EDITAR -->
+
+                    <p:commandButton
+                            value="Editar"
+                            icon="pi pi-pencil"
+                            action="#{programaCrudBean.prepararEdicion(programa)}"
+                            update="@form"/>
+
+
+                    <!-- ELIMINAR -->
+
+                    <p:commandButton
+                            value="Eliminar"
+                            icon="pi pi-trash"
+                            action="#{programaCrudBean.eliminarPrograma(programa)}"
+                            update="@form"
+                            styleClass="ui-button-danger">
+
+                        <p:confirm
+                                header="Confirmar eliminación"
+                                message="¿Está seguro de eliminar este programa?"
+                                icon="pi pi-exclamation-triangle"/>
+
+                    </p:commandButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </p:panel>
+
+
+        <!-- ========================= -->
+        <!-- CONFIRMACION -->
+        <!-- ========================= -->
+
+        <p:confirmDialog
+                global="true"
+                showEffect="fade"
+                hideEffect="fade">
+
+            <p:commandButton
+                    value="Sí"
+                    type="button"
+                    styleClass="ui-confirmdialog-yes"
+                    icon="pi pi-check"/>
+
+            <p:commandButton
+                    value="No"
+                    type="button"
+                    styleClass="ui-confirmdialog-no"
+                    icon="pi pi-times"/>
+
+        </p:confirmDialog>
+
+
+    </h:form>
+
+</h:body>
+
+</html>

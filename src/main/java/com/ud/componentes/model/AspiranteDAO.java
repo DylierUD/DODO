@@ -20,17 +20,20 @@ public class AspiranteDAO {
 		return !existente;
 	}	
 	
-	public static boolean eliminarAspirante(String nombreAspirante) {
-		for (int i = 0; i < aspirantes.size(); i++) {
+	public static boolean eliminarAspirante(String idAspirante) {
+
+	    for (int i = 0; i < aspirantes.size(); i++) {
 
 	        AspiranteDTO aspirante = aspirantes.get(i);
 
-	        if (aspirante.getIdentificacion().equals(aspirante.getIdentificacion())) {
+	        if (aspirante.getIdentificacion().equals(idAspirante)) {
+
 	            aspirantes.remove(i);
 	            return true;
 	        }
 	    }
-		return false;
+
+	    return false;
 	}	
 	
 	public static boolean validarAspirante(String idAspirante) {
