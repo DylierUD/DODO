@@ -14,7 +14,7 @@ public class AspiranteDTO implements Serializable {
 	private String apellidos;
 	private String correo;
 	private String telefono;
-	private List<ProgramaAcademico> programas = new ArrayList<>();
+	private ProgramaAcademico programa;
 	private Date fechaInscripcion; 
 		
 	
@@ -86,14 +86,13 @@ public class AspiranteDTO implements Serializable {
 	
 
 
-	
-	public List<ProgramaAcademico> getProgramas() {
-		return programas;
+	public ProgramaAcademico getPrograma() {
+		return programa;
 	}
 
 
-	public void setProgramas(List<ProgramaAcademico> programas) {
-		this.programas = programas;
+	public void setPrograma(ProgramaAcademico programa) {
+		this.programa = programa;
 	}
 
 

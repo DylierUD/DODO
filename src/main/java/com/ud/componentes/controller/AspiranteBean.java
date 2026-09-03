@@ -37,35 +37,35 @@ public class AspiranteBean implements Serializable {
 
 	public void inscribirse() {
 
-		
 		if (programasSeleccionados == null || programasSeleccionados.isEmpty()) {
 			mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debes elegir al menos una carrera.");
 			return;
 		}
 
 		
-		if (programasSeleccionados.size() > 3) {
-			mensaje(FacesMessage.SEVERITY_ERROR, "Máximo permitido", "Solo puedes elegir hasta 3 carreras.");
+		if (programasSeleccionados.size() > 1) {
+			mensaje(FacesMessage.SEVERITY_ERROR, "Máximo permitido", "Solo puedes elegir hasta 1 carrera.");
 			return;
 		}
 
 		AspiranteDTO aspirante = new AspiranteDTO(identificacion, nombres, apellidos, correo, telefono);
 		aspirante.setFechaInscripcion(new Date());
 
-		List<ProgramaAcademico> inscritos = new ArrayList<>();
+		ProgramaAcademico inscritos = new ProgramaAcademico();
 
+		
 		for (String nombrePrograma : programasSeleccionados) {
 			ProgramaAcademico programa = programaBean.buscarPorNombre(nombrePrograma);
 			if (programa != null) {
 				programa.postularAspirante(aspirante);
-				inscritos.add(programa);
+				inscritos = programa;
 			}
 		}
 
-		aspirante.setProgramas(inscritos);
+		aspirante.setPrograma(inscritos);
 
 		mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
-			"¡Inscripción realizada en " + inscritos.size() + " carrera(s)!");
+			"¡Inscripción realizada!");
 
 		limpiarFormulario();
 	}
