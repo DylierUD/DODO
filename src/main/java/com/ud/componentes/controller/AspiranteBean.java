@@ -72,6 +72,7 @@ public class AspiranteBean implements Serializable {
 				}
 			}
 		}
+		AspiranteDAO.agregarAspirante(aspirante);
 		limpiarFormulario();
 	}
 

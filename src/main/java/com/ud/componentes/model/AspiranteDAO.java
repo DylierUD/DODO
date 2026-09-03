@@ -37,6 +37,6 @@ public class AspiranteDAO {
 				existente = true;
 			}
 		}
-		return !existente;
+		return existente;
 	}
 }
