@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Formulario Aspirante</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="card" style="width:500px; margin:auto;">
+
+			<p:growl id="mensajes" showDetail="true" />
+
+			<p:panel header="Formulario de Inscripción">
+				<h:panelGrid columns="2" cellpadding="8">
+
+					<h:outputLabel for="identificacion" value="Identificación:" />
+					<p:inputText id="identificacion" value="#{aspiranteBean.identificacion}" required="true">
+						<f:validateRegex pattern="^[0-9]{6,10}$" />
+					</p:inputText>
+
+					<h:outputLabel for="nombres" value="Nombres:" />
+					<p:inputText id="nombres" value="#{aspiranteBean.nombres}" required="true" />
+
+					<h:outputLabel for="apellidos" value="Apellidos:" />
+					<p:inputText id="apellidos" value="#{aspiranteBean.apellidos}" required="true" />
+
+					<h:outputLabel for="correo" value="Correo:" />
+					<p:inputText id="correo" value="#{aspiranteBean.correo}" required="true">
+						<f:validateRegex pattern="^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$" />
+					</p:inputText>
+
+					<h:outputLabel for="telefono" value="Teléfono (10 dígitos):" />
+					<p:inputText id="telefono" value="#{aspiranteBean.telefono}" required="true">
+						<f:validateRegex pattern="^[0-9]{10}$" />
+					</p:inputText>
+
+					<h:outputLabel value="Carreras (máx. 3):" />
+					
+					<p:selectManyCheckbox id="programas"
+					    value="#{aspiranteBean.programasSeleccionados}"
+					    layout="grid" columns="1">
+					    
+					    <f:selectItems value="#{aspiranteBean.programaBean.programas}"
+					        var="prog" itemLabel="#{prog.nombrePrograma}" itemValue="#{prog.nombrePrograma}" />
+					</p:selectManyCheckbox>
+
+				</h:panelGrid>
+
+				<p:messages globalOnly="false" showDetail="true" style="margin-top:10px;" />
+
+				<div style="margin-top:15px;">
+					<p:commandButton value="Inscribirse"
+						action="#{aspiranteBean.inscribirse}"
+						update="mensajes @form"
+						ajax="true" />
+
+					<p:button value="Volver al inicio" outcome="index" style="margin-left:10px;" />
+				</div>
+			</p:panel>
+		</div>
+	</h:form>
+</h:body>
+</html>

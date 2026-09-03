@@ -1,49 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Inicio</title>
 </h:head>
 <h:body>
-<h1>#{mybean.mensaje()}</h1>
 	<h:form>
-    <div class="card">
-        <p:dataTable var="m" value="#{deptBean.listaMunicipios}"
-        rowGroupMode = "rowspan"
-        groupChildren= "true"
-        sortBy= "#{m.departamento.nombre}"
-        paginator = "true" rows = "20"
-        paginatorTemplate = "{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-        currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-        rowsPerPageTemplate = "10,20,50,1200"
-        
-        >
-            <p:column headerText="Departamento" sortBy= "#{m.departamento.nombre}" rowGroup ="false">
-                <h:outputText value="#{m.departamento.nombre}" />
-            </p:column>
-
-            <p:column headerText="Codigo"  sortBy= "#{m.codMpio}">
-                <h:outputText value="#{m.codMpio}"/>
-            </p:column>
-
-            <p:column headerText="Municipio" sortBy= "#{m.nombre}" filterBy="#{m.nombre}" filterMatchMode="contains">
-                <h:outputText value="#{m.nombre}" />
-            </p:column>
-
-            <p:column headerText="Tipo de municipio">
-                <h:outputText value="#{m.tipoMunicipio}" />
-            </p:column>
-            <p:column headerText="Coordenadas">
-                <h:outputText value="#{m.latitud} , #{m.longitud}" />
-            </p:column>
-
-            
-        </p:dataTable>
-        
-        <h:outputText value="Total municipios: #{deptBean.listaMunicipios.size()}" />
-    </div>
-</h:form>
+		<div class="card" style="width:350px; margin:auto;">
+			<p:panel header="Bienvenido">
+				<h:panelGrid columns="1">
+					<h:outputText value="Selecciona tu tipo de acceso:" />
+					<p:button outcome="estudiante" value="Aspirante / Estudiante" />
+					<p:button outcome="administrador" value="Administrador" />
+				</h:panelGrid>
+			</p:panel>
+		</div>
+	</h:form>
 </h:body>
 </html>

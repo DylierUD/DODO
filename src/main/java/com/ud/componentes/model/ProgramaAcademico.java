@@ -5,9 +5,7 @@ import java.util.List;
 
 public class ProgramaAcademico implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 4955141732410652831L;
 	private String nombrePrograma;
 	private List<AspiranteDTO> aspirantes;

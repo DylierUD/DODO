@@ -1,19 +1,21 @@
 package com.ud.componentes.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List; 
 
 public class AspiranteDTO implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 2281000422903697905L;
 	private String identificacion;
 	private String nombres;
 	private String apellidos;
 	private String correo;
 	private String telefono;
-	private ProgramaAcademico programa;
+	private List<ProgramaAcademico> programas = new ArrayList<>();
+	private Date fechaInscripcion; 
 		
 	
 	public AspiranteDTO() {
@@ -81,13 +83,27 @@ public class AspiranteDTO implements Serializable {
 	}
 
 
-	public ProgramaAcademico getPrograma() {
-		return programa;
+	
+
+
+	
+	public List<ProgramaAcademico> getProgramas() {
+		return programas;
 	}
 
 
-	public void setPrograma(ProgramaAcademico programa) {
-		this.programa = programa;
+	public void setProgramas(List<ProgramaAcademico> programas) {
+		this.programas = programas;
+	}
+
+
+	public Date getFechaInscripcion() {
+		return fechaInscripcion;
+	}
+
+
+	public void setFechaInscripcion(Date fechaInscripcion) {
+		this.fechaInscripcion = fechaInscripcion;
 	}
 
 
