@@ -27,7 +27,7 @@ public class AspiranteBean implements Serializable {
 	private String apellidos;
 	private String correo;
 	private String telefono;
-	private List<String> programasSeleccionados = new ArrayList<>();
+	private String programaSeleccionado;
 
 	@Inject
 	private ProgramaBean programaBean;
@@ -39,50 +39,50 @@ public class AspiranteBean implements Serializable {
 
 	public void inscribirse() {
 		
+		
+		mensaje(FacesMessage.SEVERITY_ERROR, "Error", "inicio ");
+		
 		if (AspiranteDAO.validarAspirante(identificacion)) {
 			mensaje(FacesMessage.SEVERITY_ERROR, "Error", "El aspirante ya tiene una inscripcion.");
 			return;
 		}
 
-		if (programasSeleccionados == null || programasSeleccionados.isEmpty()) {
+		if (programaSeleccionado == null || programaSeleccionado.isEmpty()) {
 			mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debes elegir al menos una carrera.");
 			return;
 		}
 
-		
-		if (programasSeleccionados.size() > 1) {
-			mensaje(FacesMessage.SEVERITY_ERROR, "Máximo permitido", "Solo puedes elegir hasta 1 carrera.");
-			return;
-		}
 
 		AspiranteDTO aspirante = new AspiranteDTO(identificacion, nombres, apellidos, correo, telefono);
 		aspirante.setFechaInscripcion(new Date());
  
+		ProgramaAcademico programa = programaBean.buscarPorNombre(programaSeleccionado);
 		
-		for (String nombrePrograma : programasSeleccionados) {
-			ProgramaAcademico programa = programaBean.buscarPorNombre(nombrePrograma);
-			if (programa != null) {
-				if (programa.postularAspirante(aspirante)) {
-					aspirante.setPrograma(programa);
-					mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
-							"¡Inscripción realizada!");
-				} else {
-					mensaje(FacesMessage.SEVERITY_ERROR, "Error",
-							"¡Inscripción Fallida!");
-				}
-			}
-		}
-		AspiranteDAO.agregarAspirante(aspirante);
-		limpiarFormulario();
-	}
+		if (programa != null) {
 
+	        if (programa.postularAspirante(aspirante)) {
+	            aspirante.setPrograma(programa);
+	            AspiranteDAO.agregarAspirante(aspirante);
+	            mensaje(FacesMessage.SEVERITY_INFO,"Éxito", "¡Inscripción realizada!");
+
+	        } else {
+	        	mensaje(FacesMessage.SEVERITY_INFO,"Éxito", "¡Inscripción fallida!");
+	        }
+
+	    } else {
+	    	mensaje(FacesMessage.SEVERITY_INFO,"Éxito", "¡el programa seleccionado no existe!");
+	    }
+
+	    limpiarFormulario();
+	}
+	
 	private void limpiarFormulario() {
 		identificacion = null;
 		nombres = null;
 		apellidos = null;
 		correo = null;
 		telefono = null;
-		programasSeleccionados = new ArrayList<>();
+		programaSeleccionado = null;
 	}
 
 	public void eliminarInscripcion(AspiranteDTO aspirante) {
@@ -117,8 +117,16 @@ public class AspiranteBean implements Serializable {
 	public String getTelefono() { return telefono; }
 	public void setTelefono(String telefono) { this.telefono = telefono; }
 
-	public List<String> getProgramasSeleccionados() { return programasSeleccionados; }
-	public void setProgramasSeleccionados(List<String> programasSeleccionados) { this.programasSeleccionados = programasSeleccionados; }
+
+	
+
+	public String getProgramaSeleccionado() {
+		return programaSeleccionado;
+	}
+
+	public void setProgramasSeleccionado(String programaSeleccionado) {
+		this.programaSeleccionado = programaSeleccionado;
+	}
 
 	public ProgramaBean getProgramaBean() { return programaBean; }
 }

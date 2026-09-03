@@ -36,25 +36,31 @@
 						<f:validateRegex pattern="^[0-9]{10}$" />
 					</p:inputText>
 
-					<h:outputLabel value="Carreras (máx. 3):" />
+					<h:outputLabel for="programa" value="Carrera:" />
+
+					<p:selectOneMenu id="programa" value="#{aspiranteBean.programaSeleccionado}" required="true">
 					
-					<p:selectManyCheckbox id="programas"
-					    value="#{aspiranteBean.programasSeleccionados}"
-					    layout="grid" columns="1">
-					    
-					    <f:selectItems value="#{aspiranteBean.programaBean.programas}"
-					        var="prog" itemLabel="#{prog.nombrePrograma}" itemValue="#{prog.nombrePrograma}" />
-					</p:selectManyCheckbox>
+					    <f:selectItem itemLabel="Seleccione una carrera" itemValue="" />
+					
+					    <f:selectItems
+					        value="#{aspiranteBean.programaBean.programas}"
+					        var="prog"
+					        itemLabel="#{prog.nombrePrograma}" 
+					        itemValue="#{prog.nombrePrograma}" />
+					
+					</p:selectOneMenu>
 
 				</h:panelGrid>
 
 				
 
 				<div style="margin-top:15px;">
-					<p:commandButton value="Inscribirse"
-						action="#{aspiranteBean.inscribirse}"
-						update="mensajes @form"
-						ajax="true" />
+					<p:commandButton
+				    value="Inscribirse"
+				    action="#{aspiranteBean.inscribirse}"
+				    update="@form"
+				    process="@form"
+				    ajax="true" />
 
 					<p:button value="Volver al inicio" outcome="index" style="margin-left:10px;" />
 				</div>
