@@ -2,8 +2,6 @@ package com.ud.componentes.controller;
 
 import java.io.Serializable;
 
-
-
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -20,6 +18,4 @@ public class AdministradorBean implements Serializable {
 	public ProgramaBean getProgramaBean() {
 		return programaBean;
 	}
-	
-	
 }

@@ -21,15 +21,12 @@ public class AspiranteDAO {
 	}	
 	
 	public static boolean eliminarAspirante(String nombreAspirante) {
-		for (int i = 0; i < aspirantes.size(); i++) {
-
-	        AspiranteDTO aspirante = aspirantes.get(i);
-
-	        if (aspirante.getIdentificacion().equals(aspirante.getIdentificacion())) {
-	            aspirantes.remove(i);
-	            return true;
-	        }
-	    }
+		for (AspiranteDTO aspirante : aspirantes) {
+			if (aspirante.getIdentificacion().equals(nombreAspirante)) {
+				aspirantes.remove(aspirante);
+				return true;
+			}
+		}
 		return false;
 	}	
 	
