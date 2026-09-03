@@ -42,11 +42,13 @@ public class ProgramaAcademico implements Serializable{
 	}
 	
 	public boolean postularAspirante(AspiranteDTO aspirante) {
-		if (!aspirantes.contains(aspirante)) {
-			aspirantes.add(aspirante);
-			return true;
-		}
-		return false;
+		for (AspiranteDTO aspiranteDTO : aspirantes) {
+			if (aspiranteDTO.getIdentificacion().equals(aspirante.getIdentificacion())) {
+				return false;
+			}
+		}	
+		aspirantes.add(aspirante);
+		return true;
 	}
 	
 	public boolean retirarAspirante(String idAspirante) {

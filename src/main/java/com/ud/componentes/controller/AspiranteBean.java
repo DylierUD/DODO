@@ -51,22 +51,20 @@ public class AspiranteBean implements Serializable {
 		AspiranteDTO aspirante = new AspiranteDTO(identificacion, nombres, apellidos, correo, telefono);
 		aspirante.setFechaInscripcion(new Date());
 
-		ProgramaAcademico inscritos = new ProgramaAcademico();
-
 		
 		for (String nombrePrograma : programasSeleccionados) {
 			ProgramaAcademico programa = programaBean.buscarPorNombre(nombrePrograma);
 			if (programa != null) {
-				programa.postularAspirante(aspirante);
-				inscritos = programa;
+				if (programa.postularAspirante(aspirante)) {
+					aspirante.setPrograma(programa);
+					mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
+							"¡Inscripción realizada!");
+				} else {
+					mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
+							"¡Inscripción Fallida!");
+				}
 			}
 		}
-
-		aspirante.setPrograma(inscritos);
-
-		mensaje(FacesMessage.SEVERITY_INFO, "Éxito",
-			"¡Inscripción realizada!");
-
 		limpiarFormulario();
 	}
 
