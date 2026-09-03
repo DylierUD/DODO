@@ -11,6 +11,7 @@
 		<div class="card">
 			<h1>Estudiantes Inscritos</h1>
 
+		<p:growl id="mensajes" showDetail="true" />
 			<p:accordionPanel value="#{administradorBean.programaBean.programas}" var="prog">
 				<p:tab title="#{prog.nombrePrograma} (#{prog.aspirantes.size()} inscritos)">
 
@@ -35,6 +36,18 @@
 								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 							</h:outputText>
 						</p:column>
+						
+							<p:column headerText="Acción">
+							    <p:commandButton
+							        value="Eliminar"
+							        icon="pi pi-trash"
+							        styleClass="ui-button-raised ui-button-danger"
+							        action="#{aspiranteBean.eliminarInscripcion(a)}"
+							        update="@form"
+							        process="@this">
+							    </p:commandButton>
+							</p:column>
+						
 					</p:dataTable>
 
 				</p:tab>
