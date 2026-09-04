@@ -1,64 +1,163 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Panel Administrador</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Panel Administrador</title>
 </h:head>
 <h:body>
-	<h:form>
-		<div class="card">
-			<h1>Estudiantes Inscritos</h1>
+    <h:form id="formAdmin">
+        <div class="card">
+            <h1>Panel de Administración de Estudiantes</h1>
 
-		<p:growl id="mensajes" showDetail="true" />
-		<p:button
-    value="Gestionar Programas Académicos"
-    icon="pi pi-book"
-    outcome="programas"/>
-			<p:accordionPanel value="#{administradorBean.programaBean.programas}" var="prog">
-				<p:tab title="#{prog.nombrePrograma} (#{prog.aspirantes.size()} inscritos)">
+            <p:growl id="mensajes" showDetail="true" />
 
-					<p:dataTable var="a" value="#{prog.aspirantes}">
-						<p:column headerText="Identificación">
-							<h:outputText value="#{a.identificacion}" />
-						</p:column>
-						<p:column headerText="Nombres">
-							<h:outputText value="#{a.nombres}" />
-						</p:column>
-						<p:column headerText="Apellidos">
-							<h:outputText value="#{a.apellidos}" />
-						</p:column>
-						<p:column headerText="Correo">
-							<h:outputText value="#{a.correo}" />
-						</p:column>
-						<p:column headerText="Teléfono">
-							<h:outputText value="#{a.telefono}" />
-						</p:column>
-						<p:column headerText="Fecha/Hora">
-							<h:outputText value="#{a.fechaInscripcion}">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-							</h:outputText>
-						</p:column>
-						
-							<p:column headerText="Acción">
-							    <p:commandButton
-							        value="Eliminar"
-							        icon="pi pi-trash"
-							        styleClass="ui-button-raised ui-button-danger"
-							        action="#{aspiranteBean.eliminarInscripcion(a)}"
-							        update="@form"
-							        process="@this">
-							    </p:commandButton>
-							</p:column>
-						
-					</p:dataTable>
+            <!-- BARRA DE NAVEGACIÓN -->
+            <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+                <p:button 
+                    value="Volver al inicio" 
+                    icon="pi pi-home"
+                    outcome="index" 
+                    styleClass="ui-button-secondary" />
 
-				</p:tab>
-			</p:accordionPanel>
+                <p:button 
+                    value="Gestionar Programas Académicos"
+                    icon="pi pi-book"
+                    outcome="programas" />
+            </div>
 
-			<p:button value="Volver al inicio" outcome="index" style="margin-top:15px;" />
-		</div>
-	</h:form>
+            <!-- PANEL DE EDICIÓN -->
+            <p:panel header="Modificar Datos del Estudiante" 
+                     rendered="#{aspiranteBean.mostrarFormularioEdicion}" 
+                     style="margin-bottom: 20px;">
+                
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Identificación:" />
+                    <h:outputText value="#{aspiranteBean.identificacion}" style="font-weight:bold;" />
+
+                    <h:outputLabel for="editNombres" value="Nombres:" />
+                    <p:inputText id="editNombres" value="#{aspiranteBean.nombres}" required="true" />
+
+                    <h:outputLabel for="editApellidos" value="Apellidos:" />
+                    <p:inputText id="editApellidos" value="#{aspiranteBean.apellidos}" required="true" />
+
+                    <h:outputLabel for="editCorreo" value="Correo:" />
+                    <p:inputText id="editCorreo" value="#{aspiranteBean.correo}" required="true" />
+
+                    <h:outputLabel for="editTelefono" value="Teléfono:" />
+                    <p:inputText id="editTelefono" value="#{aspiranteBean.telefono}" required="true" />
+                </h:panelGrid>
+
+                <div style="margin-top: 10px;">
+                    <p:commandButton 
+                        value="Guardar Cambios" 
+                        icon="pi pi-check" 
+                        action="#{aspiranteBean.actualizarAspirante}" 
+                        update="@form" />
+
+                    <p:commandButton 
+                        value="Cancelar" 
+                        icon="pi pi-times" 
+                        action="#{aspiranteBean.cancelarEdicion}" 
+                        update="@form" 
+                        immediate="true" 
+                        styleClass="ui-button-secondary" 
+                        style="margin-left: 5px;" />
+                </div>
+            </p:panel>
+
+            <!-- ACORDEÓN POR PROGRAMAS -->
+            <h3>Estudiantes por Programa Académico</h3>
+            <p:accordionPanel id="acordeonProgramas" 
+                              value="#{administradorBean.programaBean.programas}" 
+                              var="prog" 
+                              multiple="true" 
+                              style="margin-bottom:25px;">
+                
+                <p:tab title="#{prog.nombrePrograma} (#{prog.aspirantes.size()} inscritos)">
+
+                    <p:dataTable var="a" value="#{prog.aspirantes}" emptyMessage="No hay estudiantes en este programa.">
+                        <p:column headerText="Identificación">
+                            <h:outputText value="#{a.identificacion}" />
+                        </p:column>
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{a.nombres}" />
+                        </p:column>
+                        <p:column headerText="Apellidos">
+                            <h:outputText value="#{a.apellidos}" />
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}" />
+                        </p:column>
+                        <p:column headerText="Teléfono">
+                            <h:outputText value="#{a.telefono}" />
+                        </p:column>
+
+                       
+                    </p:dataTable>
+
+                </p:tab>
+            </p:accordionPanel>
+
+            <!-- TABLA GENERAL -->
+            <h3>Listado General de Estudiantes</h3>
+            <p:panel header="Todos los Estudiantes Registrados">
+                <p:dataTable 
+                    var="a" 
+                    value="#{aspiranteBean.todosLosAspirantes}" 
+                    paginator="true" 
+                    rows="10" 
+                    emptyMessage="No se encontraron estudiantes registrados.">
+
+                    <p:column headerText="Identificación" filterBy="#{a.identificacion}" filterMatchMode="contains" sortBy="#{a.identificacion}">
+                        <h:outputText value="#{a.identificacion}" />
+                    </p:column>
+
+                    <p:column headerText="Nombres" filterBy="#{a.nombres}" filterMatchMode="contains" sortBy="#{a.nombres}">
+                        <h:outputText value="#{a.nombres}" />
+                    </p:column>
+
+                    <p:column headerText="Apellidos" filterBy="#{a.apellidos}" filterMatchMode="contains" sortBy="#{a.apellidos}">
+                        <h:outputText value="#{a.apellidos}" />
+                    </p:column>
+
+                    <p:column headerText="Programa Académico">
+                        <h:outputText value="#{a.programa != null ? a.programa.nombrePrograma : 'Sin asignar'}" />
+                    </p:column>
+
+                    <p:column headerText="Correo">
+                        <h:outputText value="#{a.correo}" />
+                    </p:column>
+
+                    <p:column headerText="Teléfono">
+                        <h:outputText value="#{a.telefono}" />
+                    </p:column>
+
+                    <p:column headerText="Acciones" style="text-align:center; width: 180px;">
+                        <p:commandButton
+                            value="Editar"
+                            icon="pi pi-pencil"
+                            styleClass="ui-button-warning"
+                            action="#{aspiranteBean.prepararEdicion(a)}"
+                            update="@form"
+                            process="@this" />
+
+                        <p:commandButton
+                            value="Eliminar"
+                            icon="pi pi-trash"
+                            styleClass="ui-button-danger"
+                            style="margin-left: 5px;"
+                            action="#{aspiranteBean.eliminarInscripcion(a)}"
+                            update="@form"
+                            process="@this" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+        </div>
+    </h:form>
 </h:body>
 </html>

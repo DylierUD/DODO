@@ -19,6 +19,7 @@ public class ProgramaCrudBean implements Serializable {
 
     private String nombrePrograma;
     private String nombreAnterior;
+    private boolean mostrarFormulario = false;
 
     public List<ProgramaAcademico> getProgramas() {
         return ProgramaAcademicoDAO.listarProgramas();
@@ -27,12 +28,12 @@ public class ProgramaCrudBean implements Serializable {
     public void nuevoPrograma() {
         nombrePrograma = "";
         nombreAnterior = null;
+        mostrarFormulario = true;
     }
 
     public void agregarPrograma() {
-
         if (nombrePrograma == null || nombrePrograma.trim().isEmpty()) {
-            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debe ingresar el nombre del programa." );
+            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debe ingresar el nombre del programa.");
             return;
         }
 
@@ -42,71 +43,68 @@ public class ProgramaCrudBean implements Serializable {
         if (agregado) {
             mensaje(FacesMessage.SEVERITY_INFO, "Éxito", "El programa fue agregado correctamente.");
             nombrePrograma = "";
-
+            mostrarFormulario = false;
         } else {
-            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Ya existe un programa con ese nombre." );
+            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Ya existe un programa con ese nombre.");
         }
     }
 
     public void prepararEdicion(ProgramaAcademico programa) {
-
-        nombreAnterior = programa.getNombrePrograma();
-
-        nombrePrograma = programa.getNombrePrograma();
+        if (programa != null) {
+            nombreAnterior = programa.getNombrePrograma();
+            nombrePrograma = programa.getNombrePrograma();
+            mostrarFormulario = true;
+        }
     }
 
     public void actualizarPrograma() {
-
         if (nombrePrograma == null || nombrePrograma.trim().isEmpty()) {
-            mensaje( FacesMessage.SEVERITY_ERROR, "Error", "Debe ingresar el nombre del programa." );
+            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "Debe ingresar el nombre del programa.");
             return;
         }
 
-        boolean actualizado = ProgramaAcademicoDAO.actualizarPrograma( nombreAnterior,nombrePrograma.trim());
+        boolean actualizado = ProgramaAcademicoDAO.actualizarPrograma(nombreAnterior, nombrePrograma.trim());
 
         if (actualizado) {
-
             mensaje(FacesMessage.SEVERITY_INFO, "Éxito", "El programa fue actualizado correctamente.");
-
             nombrePrograma = "";
             nombreAnterior = null;
-
+            mostrarFormulario = false;
         } else {
-            mensaje( FacesMessage.SEVERITY_ERROR, "Error",  "No se pudo actualizar. Verifique que el programa exista y que el nuevo nombre no esté repetido.");
+            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo actualizar. Verifique que el programa exista y que el nuevo nombre no esté repetido.");
         }
     }
 
-    public void eliminarPrograma(ProgramaAcademico programa) {
+    public void cancelar() {
+        nombrePrograma = "";
+        nombreAnterior = null;
+        mostrarFormulario = false;
+    }
 
+    public void eliminarPrograma(ProgramaAcademico programa) {
         if (programa == null) {
             return;
         }
 
         String nombre = programa.getNombrePrograma();
-        
-        if (ProgramaAcademicoDAO.tieneAspirantes(nombre)) {
 
-            mensaje(FacesMessage.SEVERITY_WARN,"No se puede eliminar", "El programa " + nombre+ " tiene estudiantes asociados." );
+        if (ProgramaAcademicoDAO.tieneAspirantes(nombre)) {
+            mensaje(FacesMessage.SEVERITY_WARN, "No se puede eliminar", "El programa " + nombre + " tiene estudiantes asociados.");
             return;
         }
 
         boolean eliminado = ProgramaAcademicoDAO.eliminarPrograma(nombre);
 
         if (eliminado) {
-
-            mensaje( FacesMessage.SEVERITY_INFO, "Eliminación exitosa", "El programa fue eliminado correctamente.");
-
+            mensaje(FacesMessage.SEVERITY_INFO, "Eliminación exitosa", "El programa fue eliminado correctamente.");
         } else {
-
-            mensaje( FacesMessage.SEVERITY_ERROR,"Error", "No se pudo eliminar el programa.");
+            mensaje(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el programa.");
         }
     }
 
-    private void mensaje(FacesMessage.Severity tipo, String titulo,String detalle) {
-
+    private void mensaje(FacesMessage.Severity tipo, String titulo, String detalle) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(tipo, titulo, detalle));
     }
-
 
     public String getNombrePrograma() {
         return nombrePrograma;
@@ -122,5 +120,13 @@ public class ProgramaCrudBean implements Serializable {
 
     public void setNombreAnterior(String nombreAnterior) {
         this.nombreAnterior = nombreAnterior;
+    }
+
+    public boolean isMostrarFormulario() {
+        return mostrarFormulario;
+    }
+
+    public void setMostrarFormulario(boolean mostrarFormulario) {
+        this.mostrarFormulario = mostrarFormulario;
     }
 }

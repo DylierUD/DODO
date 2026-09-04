@@ -36,15 +36,22 @@
 						<f:validateRegex pattern="^[0-9]{10}$" />
 					</p:inputText>
 
-					<h:outputLabel value="Carrera (seleccione solo 1):" />
+					<h:outputLabel for="carrera" value="Seleccione la carrera:" />
+					<p:selectOneRadio 
+						    id="carrera" 
+						    value="#{aspiranteBean.carreraSeleccionada}" 
+						    layout="responsive" 
+						    columns="2"
+						    required="true">
+						    
+						    <f:selectItems 
+						        value="#{programaBean.programas}" 
+						        var="p" 
+						        itemLabel="#{p.nombrePrograma}" 
+						        itemValue="#{p.nombrePrograma}" />
+						        
+						</p:selectOneRadio>
 					
-					<p:selectManyCheckbox id="programas"
-					    value="#{aspiranteBean.programasSeleccionados}"
-					    layout="grid" columns="1">
-					    
-					    <f:selectItems value="#{aspiranteBean.programaBean.programas}"
-					        var="prog" itemLabel="#{prog.nombrePrograma}" itemValue="#{prog.nombrePrograma}" />
-					</p:selectManyCheckbox>
 
 				</h:panelGrid>
 
