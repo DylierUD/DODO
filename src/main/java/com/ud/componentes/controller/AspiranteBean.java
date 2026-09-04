@@ -85,22 +85,6 @@ public class AspiranteBean implements Serializable {
 		programasSeleccionados = new ArrayList<>();
 	}
 
-	public void eliminarInscripcion(AspiranteDTO aspirante) {
-		
-		if(aspirante.getPrograma()  != null) {
-	        aspirante.getPrograma().retirarAspirante(
-	                aspirante.getIdentificacion()
-	            );
-	        }
-		
-			AspiranteDAO.eliminarAspirante(
-		        aspirante.getIdentificacion()
-		    );
-
-		    mensaje(FacesMessage.SEVERITY_INFO, "Eliminación exitosa", "El aspirante fue eliminado correctamente." );	
-	}
-	
-	
 	
 	public String getIdentificacion() { return identificacion; }
 	public void setIdentificacion(String identificacion) { this.identificacion = identificacion; }

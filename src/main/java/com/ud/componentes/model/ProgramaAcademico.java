@@ -52,16 +52,14 @@ public class ProgramaAcademico implements Serializable{
 	}
 	
 	public boolean retirarAspirante(String idAspirante) {
-		for (int i = 0; i < aspirantes.size(); i++) {
-
-	        AspiranteDTO aspirante = aspirantes.get(i);
-
-	        if (aspirante.getIdentificacion().equals(idAspirante)) {
-	            aspirantes.remove(i);
-	            return true;
-	        }
-	    }
-		return false;
+		boolean eliminado = false;
+		for (AspiranteDTO aspirante : aspirantes) {
+			if (aspirante.getIdentificacion().equals(idAspirante)) {
+				aspirantes.remove(aspirante);
+				eliminado = true;
+			}
+		}
+		return eliminado;
 	}
 	
 	
