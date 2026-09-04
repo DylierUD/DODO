@@ -3,19 +3,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
       xmlns:f="jakarta.faces.core">
 
 <h:head>
-    <title>Programas Académicos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Programas Académicos | Universidad del Dodo</title>
+    <h:outputStylesheet library="css" name="estilos.css" />
 </h:head>
 
-<h:body>
+<h:body styleClass="tema-admin">
+
+    <ui:include src="/WEB-INF/includes/cabecera.xhtml">
+        <ui:param name="activo" value="admin" />
+        <ui:param name="seccion" value="Administración" />
+        <ui:param name="titulo" value="Programas académicos" />
+        <ui:param name="subtitulo" value="Crea, edita y elimina la oferta académica disponible para los aspirantes." />
+    </ui:include>
 
     <h:form id="form">
 
         <p:growl id="mensajes" showDetail="true" life="4000"/>
-
-        <h1>Administración de Programas Académicos</h1>
 
         <div style="margin-bottom: 15px; display: flex; gap: 10px;">
             
@@ -149,6 +157,8 @@
         </p:confirmDialog>
 
     </h:form>
+
+    <div class="udd-pie">Universidad del Dodo &#183; Bogotá D.C. &#183; Registro Académico</div>
 
 </h:body>
 </html>

@@ -3,15 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Panel Administrador</title>
+    <title>Administración | Universidad del Dodo</title>
+    <h:outputStylesheet library="css" name="estilos.css" />
 </h:head>
-<h:body>
+<h:body styleClass="tema-admin">
+
+    <ui:include src="/WEB-INF/includes/cabecera.xhtml">
+        <ui:param name="activo" value="admin" />
+        <ui:param name="seccion" value="Administración" />
+        <ui:param name="titulo" value="Panel de estudiantes" />
+        <ui:param name="subtitulo" value="Consulta, edita y elimina las inscripciones registradas en cada programa académico." />
+    </ui:include>
+
     <h:form id="formAdmin">
         <div class="card">
-            <h1>Panel de Administración de Estudiantes</h1>
 
             <p:growl id="mensajes" showDetail="true" />
 
@@ -159,5 +168,7 @@
 
         </div>
     </h:form>
+
+    <div class="udd-pie">Universidad del Dodo &#183; Bogotá D.C. &#183; Registro Académico</div>
 </h:body>
 </html>

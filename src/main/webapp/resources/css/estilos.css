@@ -1,0 +1,887 @@
+/* ============================================================
+   estilos.css  -  Universidad del Dodo
+   Hoja unica para las 4 vistas. El color de acento cambia segun
+   la clase que lleve el <body>:
+       .tema-inicio      -> morado  #B347FF   (menu principal)
+       .tema-estudiante  -> rojo    #FF4947   (aspirantes)
+       .tema-admin       -> azul    #7647FF   (administrador)
+
+   NOTA: las reglas de color llevan !important a proposito, para
+   ganarle al tema de PrimeFaces (saga) pase lo que pase con el
+   orden en que se cargan las hojas.
+   Estetica: bordes rectos, sombras solidas desplazadas y titulos
+   en versalitas. Sin esquinas redondeadas.
+   ============================================================ */
+
+/* ---------- 1. Tokens ---------- */
+:root {
+    --acento:        #B347FF;
+    --acento-fuerte: #8a17e0;
+    --acento-tinta:  #3c0b63;
+    --acento-velo:   rgba(179, 71, 255, .10);
+
+    --tinta:   #14101c;
+    --tinta-2: #56506a;
+    --tinta-3: #8b8598;
+    --linea:   #ded8e8;
+    --papel:   #ffffff;
+    --fondo:   #f2f0f6;
+
+    --peligro: #d92b28;
+    --aviso:   #c47b00;
+
+    --sombra:  6px 6px 0 var(--acento-velo);
+}
+
+body.tema-inicio {
+    --acento:        #B347FF;
+    --acento-fuerte: #8a17e0;
+    --acento-tinta:  #3c0b63;
+    --acento-velo:   rgba(179, 71, 255, .10);
+}
+
+body.tema-estudiante {
+    --acento:        #FF4947;
+    --acento-fuerte: #d92220;
+    --acento-tinta:  #6b0f0e;
+    --acento-velo:   rgba(255, 73, 71, .10);
+}
+
+body.tema-admin {
+    --acento:        #7647FF;
+    --acento-fuerte: #4f1ce0;
+    --acento-tinta:  #250a63;
+    --acento-velo:   rgba(118, 71, 255, .10);
+}
+
+/* ---------- 2. Lienzo ---------- */
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--tinta);
+    background-color: var(--fondo);
+    background-image:
+        linear-gradient(var(--acento-velo) 1px, transparent 1px),
+        linear-gradient(90deg, var(--acento-velo) 1px, transparent 1px);
+    background-size: 28px 28px, 28px 28px;
+    font-family: "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* El <form> es el contenedor real del contenido de cada vista */
+body > form {
+    display: block;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 24px 70px;
+    box-sizing: border-box;
+}
+
+/* ---------- 3. Cabecera ---------- */
+.udd-cabecera {
+    background: var(--papel);
+    border-top: 6px solid var(--acento);
+    border-bottom: 1px solid var(--linea);
+    box-shadow: 0 3px 0 var(--acento-velo);
+}
+
+.udd-cabecera-int {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Marca (escudo + nombre) */
+a.udd-marca,
+a.udd-marca:hover,
+a.udd-marca:visited {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    text-decoration: none;
+    color: var(--tinta);
+}
+
+.udd-escudo {
+    height: 58px;
+    width: auto;
+    display: block;
+}
+
+.udd-marca-txt {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    border-left: 3px solid var(--acento);
+    padding-left: 14px;
+}
+
+.udd-marca-nombre {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--tinta);
+}
+
+.udd-marca-sede {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+    margin-top: 4px;
+}
+
+/* Navegacion */
+.udd-nav {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+}
+
+a.udd-nav-a,
+a.udd-nav-a:visited {
+    display: block;
+    padding: 26px 14px 23px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--tinta-2);
+    border-bottom: 3px solid transparent;
+    transition: color .12s ease, border-color .12s ease, background .12s ease;
+}
+
+a.udd-nav-a:hover {
+    color: var(--acento-fuerte);
+    background: var(--acento-velo);
+    border-bottom-color: var(--acento);
+}
+
+a.udd-nav-a.es-activo {
+    color: var(--acento-fuerte);
+    border-bottom-color: var(--acento);
+}
+
+/* ---------- 4. Banner ---------- */
+.udd-banner {
+    background-color: var(--acento);
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .08) 0 14px,
+        rgba(255, 255, 255, 0) 14px 28px
+    );
+    border-bottom: 6px solid var(--acento-tinta);
+    color: #fff;
+}
+
+.udd-banner-int {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 24px 32px;
+}
+
+.udd-banner-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .88);
+}
+
+.udd-banner-tag::before {
+    content: "";
+    width: 26px;
+    height: 4px;
+    background: #fff;
+}
+
+h1.udd-banner-tit {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 3px 3px 0 var(--acento-tinta);
+}
+
+h1.udd-banner-tit::before {
+    display: none;
+}
+
+.udd-banner-sub {
+    margin: 10px 0 0;
+    max-width: 620px;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, .92);
+}
+
+/* ---------- 5. Titulos de seccion ---------- */
+h2, h3 {
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--tinta);
+    margin: 0 0 18px;
+}
+
+h3 {
+    font-size: 14px;
+    color: var(--tinta-2);
+    letter-spacing: .12em;
+    margin: 34px 0 12px;
+    padding-left: 12px;
+    border-left: 5px solid var(--acento);
+}
+
+/* ---------- 6. Tarjeta ---------- */
+.card {
+    background: var(--papel);
+    border: 1px solid var(--linea);
+    border-top: 6px solid var(--acento);
+    border-radius: 0;
+    padding: 28px 30px 34px;
+    box-shadow: var(--sombra);
+    box-sizing: border-box;
+}
+
+body.tema-inicio .card,
+body.tema-estudiante .card {
+    margin-top: 0 !important;
+    padding: 30px 28px 32px;
+}
+
+body.tema-inicio .card {
+    width: 430px !important;
+    text-align: center;
+}
+
+/* Logo grande del menu principal */
+.udd-logo-hero {
+    width: 200px;
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto 6px;
+}
+
+.udd-lema {
+    margin: 0 0 22px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+/* ---------- 7. Panel de PrimeFaces ---------- */
+body .ui-panel {
+    border: 1px solid var(--linea);
+    border-radius: 0 !important;
+    background: var(--papel);
+    padding: 0;
+    box-shadow: 4px 4px 0 var(--acento-velo);
+}
+
+body .ui-panel .ui-panel-titlebar,
+body .ui-panel > .ui-panel-titlebar.ui-widget-header {
+    background: var(--acento) !important;
+    background-image: none !important;
+    color: #fff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 12px 18px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+body .ui-panel .ui-panel-title,
+body .ui-panel .ui-panel-titlebar-icon,
+body .ui-panel .ui-panel-titlebar .ui-icon {
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: .1em;
+}
+
+body .ui-panel .ui-panel-content {
+    padding: 22px 20px;
+    border: 0;
+    background: transparent;
+}
+
+/* ---------- 8. Etiquetas y rejillas ---------- */
+body .ui-panelgrid,
+body .ui-panelgrid > * > tr > td {
+    border: 0;
+    background: transparent;
+}
+
+body .ui-panelgrid td {
+    padding: 7px 10px 7px 0;
+    vertical-align: middle;
+}
+
+body label,
+body .ui-outputlabel {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--tinta-2);
+}
+
+/* ---------- 9. Campos de texto ---------- */
+body .ui-inputfield,
+body .ui-inputtext,
+body input.ui-inputtext {
+    border: 1px solid var(--linea);
+    border-bottom: 2px solid var(--tinta-3);
+    border-radius: 0 !important;
+    padding: 9px 11px;
+    font-size: 14px;
+    color: var(--tinta);
+    background: #fbfafd;
+    box-shadow: none;
+    transition: border-color .12s ease, background .12s ease;
+    min-width: 230px;
+    box-sizing: border-box;
+}
+
+body .ui-inputfield:hover,
+body .ui-inputtext:hover {
+    border-color: var(--acento) !important;
+    background: #fff;
+}
+
+body .ui-inputfield:focus,
+body .ui-inputtext:focus,
+body .ui-inputfield.ui-state-focus {
+    outline: 0;
+    border-color: var(--acento) !important;
+    border-bottom: 2px solid var(--acento) !important;
+    background: #fff;
+    box-shadow: 3px 3px 0 var(--acento-velo) !important;
+}
+
+body .ui-inputtext::placeholder {
+    color: var(--tinta-3);
+    font-style: italic;
+}
+
+body .ui-state-error,
+body .ui-inputfield.ui-state-error {
+    border-color: var(--peligro) !important;
+    border-bottom-color: var(--peligro) !important;
+    background: #fff5f5;
+}
+
+/* ---------- 10. Botones ---------- */
+body .ui-button,
+body .ui-button.ui-widget,
+body .ui-confirmdialog-yes,
+body .ui-confirmdialog-no {
+    border-radius: 0 !important;
+    border: 1px solid var(--acento-fuerte) !important;
+    background: var(--acento) !important;
+    background-image: none !important;
+    color: #fff !important;
+    padding: 9px 16px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 var(--acento-tinta);
+    white-space: nowrap;
+    transition: transform .08s ease, box-shadow .08s ease, background .12s ease;
+}
+
+body .ui-button .ui-button-text {
+    padding: 0 0 0 4px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: inherit;
+}
+
+body .ui-button .ui-icon,
+body .ui-button .ui-button-icon-left {
+    color: inherit;
+}
+
+body .ui-button:not(:disabled):hover {
+    background: var(--acento-fuerte) !important;
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--acento-tinta);
+}
+
+body .ui-button:not(:disabled):active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--acento-tinta);
+}
+
+body .ui-button:focus {
+    outline: 2px solid var(--acento-tinta);
+    outline-offset: 2px;
+    box-shadow: 3px 3px 0 var(--acento-tinta);
+}
+
+/* Variantes */
+body .ui-button.ui-button-secondary {
+    background: #fff !important;
+    color: var(--tinta) !important;
+    border: 1px solid var(--tinta) !important;
+    box-shadow: 3px 3px 0 var(--linea);
+}
+
+body .ui-button.ui-button-secondary:not(:disabled):hover {
+    background: var(--tinta) !important;
+    color: #fff !important;
+    box-shadow: 5px 5px 0 var(--linea);
+}
+
+body .ui-button.ui-button-warning {
+    background: #fff !important;
+    color: var(--aviso) !important;
+    border: 1px solid var(--aviso) !important;
+    box-shadow: 3px 3px 0 rgba(196, 123, 0, .22);
+}
+
+body .ui-button.ui-button-warning:not(:disabled):hover {
+    background: var(--aviso) !important;
+    color: #fff !important;
+}
+
+body .ui-button.ui-button-danger {
+    background: #fff !important;
+    color: var(--peligro) !important;
+    border: 1px solid var(--peligro) !important;
+    box-shadow: 3px 3px 0 rgba(217, 43, 40, .22);
+}
+
+body .ui-button.ui-button-danger:not(:disabled):hover {
+    background: var(--peligro) !important;
+    color: #fff !important;
+}
+
+/* ---------- 11. Menu principal (index) ---------- */
+body.tema-inicio .ui-panelgrid {
+    width: 100%;
+}
+
+body.tema-inicio .ui-panelgrid td {
+    padding: 6px 0;
+}
+
+body.tema-inicio .ui-panel-content .ui-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 16px 18px;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+body.tema-inicio .ui-panel-content .ui-button .ui-button-text {
+    display: block;
+}
+
+body.tema-inicio .ui-panel-content tr:last-child .ui-button {
+    background: #fff !important;
+    color: var(--acento-tinta) !important;
+    border: 1px solid var(--acento-fuerte) !important;
+    box-shadow: 3px 3px 0 var(--acento);
+}
+
+body.tema-inicio .ui-panel-content tr:last-child .ui-button:hover {
+    background: var(--acento-tinta) !important;
+    color: #fff !important;
+}
+
+body.tema-inicio .ui-panel-content td:first-child {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+/* ---------- 12. Barras de navegacion en linea ---------- */
+body > form > div[style*="flex"],
+body .card > div[style*="flex"] {
+    border-left: 5px solid var(--acento);
+    padding: 10px 0 10px 14px;
+    background: linear-gradient(90deg, var(--acento-velo), transparent 60%);
+}
+
+/* ---------- 13. Tablas ---------- */
+body .ui-datatable {
+    border: 1px solid var(--linea);
+    border-radius: 0 !important;
+}
+
+body .ui-datatable table {
+    border-collapse: collapse;
+}
+
+body .ui-datatable thead th,
+body .ui-datatable .ui-datatable-header {
+    background: var(--tinta) !important;
+    background-image: none !important;
+    color: #fff !important;
+    border: 0;
+    border-right: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 0 !important;
+    padding: 11px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+body .ui-datatable thead th .ui-column-title,
+body .ui-datatable thead th .ui-sortable-column-icon,
+body .ui-datatable thead th .ui-icon {
+    color: #fff !important;
+}
+
+body .ui-datatable thead th .ui-column-filter {
+    width: 100%;
+    min-width: 0;
+    margin-top: 7px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-bottom: 2px solid var(--acento);
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 7px;
+}
+
+body .ui-datatable thead th .ui-column-filter::placeholder {
+    color: rgba(255, 255, 255, .5);
+}
+
+body .ui-datatable tbody td {
+    border: 0;
+    border-bottom: 1px solid var(--linea);
+    padding: 10px 12px !important;
+    background: transparent;
+}
+
+body .ui-datatable tbody tr.ui-widget-content {
+    background: var(--papel);
+    border: 0;
+}
+
+body .ui-datatable tbody tr.ui-datatable-odd {
+    background: #faf9fc;
+}
+
+body .ui-datatable tbody tr:hover td {
+    background: var(--acento-velo);
+}
+
+body .ui-datatable .ui-datatable-empty-message {
+    text-align: center;
+    color: var(--tinta-3);
+    font-style: italic;
+    padding: 26px 12px;
+}
+
+body .ui-datatable tbody td .ui-button {
+    margin: 2px 0;
+    padding: 6px 8px !important;
+    font-size: 10.5px;
+    letter-spacing: .03em;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .12);
+}
+
+/* el icono dentro de un boton de tabla ocupa menos */
+body .ui-datatable tbody td .ui-button .ui-icon,
+body .ui-datatable tbody td .ui-button .ui-button-icon-left {
+    font-size: 11px;
+}
+
+body .ui-datatable tbody td .ui-button .ui-button-text {
+    letter-spacing: .04em;
+}
+
+/* ---------- 14. Paginador ---------- */
+body .ui-paginator {
+    background: #fff;
+    border: 0;
+    border-top: 1px solid var(--linea);
+    border-radius: 0 !important;
+    padding: 8px;
+}
+
+body .ui-paginator .ui-paginator-page,
+body .ui-paginator .ui-paginator-first,
+body .ui-paginator .ui-paginator-prev,
+body .ui-paginator .ui-paginator-next,
+body .ui-paginator .ui-paginator-last {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0 !important;
+    border: 1px solid var(--linea);
+    min-width: 30px;
+    height: 30px;
+    line-height: 28px;
+    margin: 0 2px;
+    color: var(--tinta-2);
+}
+
+body .ui-paginator .ui-paginator-page.ui-state-active {
+    background: var(--acento) !important;
+    border-color: var(--acento-fuerte) !important;
+    color: #fff !important;
+    font-weight: 800;
+}
+
+/* ---------- 15. Acordeon ---------- */
+body .ui-accordion .ui-accordion-header {
+    border: 1px solid var(--linea);
+    border-left: 5px solid var(--acento) !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    background-image: none !important;
+    margin-top: 6px;
+    padding: 0;
+}
+
+body .ui-accordion .ui-accordion-header > a {
+    display: block;
+    padding: 12px 16px;
+    color: var(--tinta);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+body .ui-accordion .ui-accordion-header:hover {
+    background: var(--acento-velo) !important;
+}
+
+body .ui-accordion .ui-accordion-header.ui-state-active {
+    background: var(--acento) !important;
+    border-color: var(--acento-fuerte);
+    border-left-color: var(--acento-tinta) !important;
+}
+
+body .ui-accordion .ui-accordion-header.ui-state-active > a,
+body .ui-accordion .ui-accordion-header.ui-state-active .ui-icon {
+    color: #fff !important;
+}
+
+body .ui-accordion .ui-accordion-content {
+    border: 1px solid var(--linea);
+    border-top: 0;
+    border-left: 5px solid var(--acento-tinta);
+    border-radius: 0 !important;
+    padding: 16px;
+    background: #fff;
+}
+
+/* ---------- 16. Radios (seleccion de carrera) ---------- */
+body .ui-selectoneradio td {
+    padding: 6px 14px 6px 0;
+}
+
+body .ui-radiobutton .ui-radiobutton-box {
+    border: 2px solid var(--tinta-3);
+    border-radius: 0 !important;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+}
+
+body .ui-radiobutton .ui-radiobutton-box.ui-state-active,
+body .ui-radiobutton .ui-radiobutton-box.ui-state-focus {
+    border-color: var(--acento) !important;
+    background: var(--acento) !important;
+    box-shadow: 2px 2px 0 var(--acento-velo);
+}
+
+body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
+    background: #fff;
+    border-radius: 0;
+    width: 8px;
+    height: 8px;
+    margin: 3px 0 0 3px;
+}
+
+body .ui-selectoneradio label {
+    text-transform: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--tinta);
+    margin-left: 6px;
+}
+
+/* ---------- 17. Growl y mensajes ---------- */
+body .ui-growl-item-container {
+    border-radius: 0 !important;
+    border: 1px solid var(--tinta);
+    border-left: 6px solid var(--acento);
+    box-shadow: 6px 6px 0 rgba(20, 16, 28, .15);
+}
+
+body .ui-growl-item .ui-growl-title {
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+body .ui-growl-item-container.ui-growl-message-error {
+    border-left-color: var(--peligro);
+}
+
+body .ui-growl-item-container.ui-growl-message-warn {
+    border-left-color: var(--aviso);
+}
+
+body .ui-message-error {
+    display: inline-block;
+    border: 0;
+    border-left: 4px solid var(--peligro);
+    background: #fff2f2;
+    color: var(--peligro);
+    border-radius: 0;
+    padding: 4px 9px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* ---------- 18. Dialogo de confirmacion ---------- */
+body .ui-dialog {
+    border: 1px solid var(--tinta);
+    border-radius: 0 !important;
+    box-shadow: 10px 10px 0 rgba(20, 16, 28, .18);
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    background: var(--tinta) !important;
+    background-image: none !important;
+    color: #fff !important;
+    border: 0;
+    border-radius: 0 !important;
+    padding: 12px 16px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-icon {
+    color: #fff !important;
+}
+
+body .ui-dialog .ui-dialog-content {
+    padding: 20px 18px;
+    border: 0;
+}
+
+body .ui-dialog .ui-dialog-buttonpane {
+    border-top: 1px solid var(--linea);
+    padding: 12px 16px;
+    text-align: right;
+}
+
+body .ui-confirmdialog-no {
+    background: #fff !important;
+    color: var(--tinta) !important;
+    border-color: var(--tinta) !important;
+    box-shadow: 3px 3px 0 var(--linea);
+    margin-left: 8px;
+}
+
+body .ui-widget-overlay {
+    background: rgba(20, 16, 28, .45);
+}
+
+/* ---------- 19. Pie ---------- */
+.udd-pie {
+    border-top: 1px solid var(--linea);
+    background: var(--papel);
+    color: var(--tinta-3);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 18px 24px;
+}
+
+/* ---------- 20. Responsive ---------- */
+@media (max-width: 820px) {
+    .udd-cabecera-int {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 4px;
+    }
+
+    a.udd-nav-a,
+    a.udd-nav-a:visited {
+        padding: 10px 12px 12px;
+    }
+
+    .udd-nav {
+        flex-wrap: wrap;
+    }
+
+    h1.udd-banner-tit {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 700px) {
+    body > form {
+        padding: 24px 14px 50px;
+    }
+
+    .card,
+    body.tema-inicio .card,
+    body.tema-estudiante .card {
+        width: auto !important;
+        max-width: 100%;
+    }
+
+    body .ui-panelgrid td {
+        display: block;
+        width: auto;
+        padding: 4px 0;
+    }
+
+    body .ui-inputfield,
+    body .ui-inputtext {
+        width: 100%;
+        min-width: 0;
+    }
+
+    body .ui-datatable {
+        overflow-x: auto;
+    }
+}

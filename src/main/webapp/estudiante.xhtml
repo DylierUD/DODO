@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui">
+	xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Formulario Aspirante</title>
+	<title>Aspirantes | Universidad del Dodo</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
 </h:head>
-<h:body>
+<h:body styleClass="tema-estudiante">
+
+	<ui:include src="/WEB-INF/includes/cabecera.xhtml">
+		<ui:param name="activo" value="estudiante" />
+		<ui:param name="seccion" value="Aspirantes" />
+		<ui:param name="titulo" value="Inscripción a programas" />
+		<ui:param name="subtitulo" value="Diligencia tus datos personales y selecciona el programa académico al que deseas inscribirte." />
+	</ui:include>
+
 	<h:form>
 		<div class="card" style="width:500px; margin:auto;">
 
@@ -68,5 +78,7 @@
 			</p:panel>
 		</div>
 	</h:form>
+
+	<div class="udd-pie">Universidad del Dodo &#183; Bogotá D.C. &#183; Registro Académico</div>
 </h:body>
 </html>
